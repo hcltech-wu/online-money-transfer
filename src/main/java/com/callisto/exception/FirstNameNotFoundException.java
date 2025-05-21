@@ -7,4 +7,3 @@ public class FirstNameNotFoundException extends RuntimeException {
         super(Constants.firstNameNotFound);
     }
 }
-
