@@ -1,21 +1,22 @@
 package com.callisto.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import lombok.Data;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
@@ -40,6 +41,25 @@ public class User {
     @NotNull
     @Past(message = "DOB must be in the past")
     private LocalDate dob;
+
+    @NotBlank
+    @Email(message = "Invalid email format")
+    @Column(name = "EMAIL")
+    private String email;
+
+    @NotBlank
+    @Pattern(regexp = "^[6-9]\\d{9}$", message = "Invalid phone number")
+    private String phoneNumber;
+
+    @NotBlank
+    @Size(min = 8, message = "Password must be at least 8 characters")
+    private String password;
+
+    @Embedded
+    private Address address;
+
+    @AssertTrue(message = "You must accept terms and conditions")
+    private boolean termsAccepted;
 
     public String getFirstName() {
         return firstName;
@@ -89,21 +109,4 @@ public class User {
         this.password = password;
     }
 
-    @NotBlank
-    @Email(message = "Invalid email format")
-    private String email;
-
-    @NotBlank
-    @Pattern(regexp = "^[6-9]\\d{9}$", message = "Invalid phone number")
-    private String phoneNumber;
-
-    @NotBlank
-    @Size(min = 8, message = "Password must be at least 8 characters")
-    private String password;
-
-    @Embedded
-    private Address address;
-
-    @AssertTrue(message = "You must accept terms and conditions")
-    private boolean termsAccepted;
 }

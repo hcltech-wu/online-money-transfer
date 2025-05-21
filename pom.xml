@@ -61,12 +61,12 @@
 			<version>21.9.0.0</version>
 		</dependency>
 
-		<!-- H2 Database (for testing or in-memory use) -->
+	<!--	 H2 Database (for testing or in-memory use)
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 
 		<!-- Validation -->
 		<dependency>
