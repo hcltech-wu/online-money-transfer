@@ -1,9 +1,10 @@
 package com.callisto.exception;
 
-import com.callisto.Constant.Constants;
+
+import com.callisto.Constant.ExceptionConstants;
 
 public class FirstNameNotFoundException extends RuntimeException {
     public FirstNameNotFoundException() {
-        super(Constants.firstNameNotFound);
+        super(ExceptionConstants.firstNameNotFound);
     }
 }

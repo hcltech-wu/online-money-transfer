@@ -1,9 +1,9 @@
 package com.callisto.exception;
 
-import com.callisto.Constant.Constants;
+import com.callisto.Constant.ExceptionConstants;
 
 public class UserEmailNotFoundException extends RuntimeException {
     public UserEmailNotFoundException() {
-        super(Constants.emailNotFound);
+        super(ExceptionConstants.emailNotFound);
     }
 }
