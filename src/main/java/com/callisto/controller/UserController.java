@@ -3,10 +3,13 @@ package com.callisto.controller;
 import com.callisto.Constant.LogMessages;
 import com.callisto.dto.CustomerProfileDTO;
 
+import com.callisto.model.User;
 import com.callisto.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import com.callisto.Constant.SmConstants;
 import com.callisto.model.User;
+
+import com.callisto.Constant.SmConstants;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +25,7 @@ public class UserController {
     private static final Logger logger = LogManager.getLogger(UserController.class);
     @Autowired
     private UserService userService;
-    
+
     @GetMapping("/userProfile")
     public ResponseEntity<CustomerProfileDTO> getCustomerProfile(@RequestParam String email) {
         log.info(LogMessages.REQUEST_RECEIVED_EMAIL, email);
