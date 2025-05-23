@@ -4,9 +4,11 @@ import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.Getter;
 
 @Embeddable
 @Data
+@Getter
 public class Address {
 
     @NotBlank

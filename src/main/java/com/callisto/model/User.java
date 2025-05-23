@@ -16,11 +16,15 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Data
 @Entity
+@Getter
+@Setter
 @Table(name = "USER_OMT")
 public class User {
 
