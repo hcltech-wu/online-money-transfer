@@ -54,7 +54,6 @@ public class User {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
-    @NotBlank
     @Embedded
     private Address address;
 

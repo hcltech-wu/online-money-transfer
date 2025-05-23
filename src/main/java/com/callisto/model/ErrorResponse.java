@@ -18,4 +18,3 @@ public class ErrorResponse {
     private String path;
 
 }
-

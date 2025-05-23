@@ -18,30 +18,23 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(FirstNameNotFoundException.class)
     public ResponseEntity<ErrorResponse> firstNameNotFoundException(FirstNameNotFoundException ex, WebRequest request) {
-       ErrorResponse error = new ErrorResponse(LocalDateTime.now(),
-               HttpStatus.NOT_FOUND.value(),
-               ErrorConstants.FIRST_NAME_NOTFOUND,
-               ex.getMessage(),
-               request.getDescription(false));
+        ErrorResponse error = new ErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(),
+                ErrorConstants.FIRST_NAME_NOTFOUND, ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UserEmailNotFoundException.class)
     public ResponseEntity<ErrorResponse> userEmailNotFoundException(UserEmailNotFoundException ex, WebRequest request) {
-        ErrorResponse error = new ErrorResponse(LocalDateTime.now(),
-                HttpStatus.NOT_FOUND.value(),
-                ErrorConstants.EMAIL_REGISTERD,
-                ex.getMessage(),
-                request.getDescription(false));
+        ErrorResponse error = new ErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(),
+                ErrorConstants.EMAIL_REGISTERD, ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put(error.getField(), error.getDefaultMessage())
-        );
+        ex.getBindingResult().getFieldErrors()
+                .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
