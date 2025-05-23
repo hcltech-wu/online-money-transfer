@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,5 +77,27 @@ public class UserService {
         userRepository.save(user);
 
         logger.info("user saved successfully: {}" + user.getEmail());
+    }
+
+    public String isUserValid(String email, String password) {
+        // getting logs
+        logger.info("Validating user with email: {}", email);
+
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
+            if (passwordMatches) {
+                logger.info("User {} authenticated successfully.", email);
+                return "User login successfully";
+            } else {
+                logger.warn("Incorrect password for user: {}", email);
+                return "Incorrect password";
+            }
+        } else {
+            logger.warn("No user found with email: {}", email);
+            return "User not found";
+        }
+
     }
 }
