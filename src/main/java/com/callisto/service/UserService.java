@@ -44,6 +44,7 @@ public class UserService {
     }
 
     public void updateUserDetails(@Valid UserDto userDto) {
+    	log.info("updating user info");
         Optional<User> useropt = userRepository.findByEmail(userDto.getEmail());
         if (!useropt.isPresent()) {
             throw new UserEmailNotFoundException("User is not exist with the email address");
@@ -65,6 +66,7 @@ public class UserService {
             existingUser.setDob(userDto.getDob());
             existingUser.setAddress(userDto.getAddress());
             userRepository.save(existingUser);
+        	log.info("user info Updated successfully");
 
         }
 
