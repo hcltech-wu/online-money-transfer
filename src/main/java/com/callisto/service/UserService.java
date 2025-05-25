@@ -25,18 +25,6 @@ import com.callisto.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 @Log4j2
 @Service
 public class UserService {
@@ -65,7 +53,6 @@ public class UserService {
         return new CustomerProfileDTO(fullName, user.getDob(), addressString, LogMessages.language, LogMessages.status,
                 user.getEmail(), mobile);
     }
-
 
     public void saveUser(User user) {
         logger.info("Inside saveUser()");
@@ -118,6 +105,7 @@ public class UserService {
             userRepository.save(existingUser);
         	log.info("user info Updated successfully");
         }
+    }
 
     public String isUserValid(String email, String password) {
         // getting logs
