@@ -3,12 +3,14 @@ package com.callisto.model;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Embeddable
 @Data
-@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Address {
 
     @NotBlank
