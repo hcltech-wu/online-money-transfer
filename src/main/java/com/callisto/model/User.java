@@ -1,5 +1,7 @@
 package com.callisto.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,18 +15,15 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.time.LocalDate;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Getter
-@Setter
 @Table(name = "USER_OMT")
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
