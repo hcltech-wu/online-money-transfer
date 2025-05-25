@@ -25,6 +25,18 @@ import com.callisto.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Log4j2
 @Service
 public class UserService {
@@ -105,7 +117,26 @@ public class UserService {
             existingUser.setAddress(userDto.getAddress());
             userRepository.save(existingUser);
         	log.info("user info Updated successfully");
+        }
 
+    public String isUserValid(String email, String password) {
+        // getting logs
+        logger.info("Validating user with email: {}", email);
+
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
+            if (passwordMatches) {
+                logger.info("User {} authenticated successfully.", email);
+                return "User login successfully";
+            } else {
+                logger.warn("Incorrect password for user: {}", email);
+                return "Incorrect password";
+            }
+        } else {
+            logger.warn("No user found with email: {}", email);
+            return "User not found";
         }
 
     }
