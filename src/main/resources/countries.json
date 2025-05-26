@@ -3,5 +3,10 @@
   "US":"USA",
   "BR":"Brazil",
   "AU":"Australia",
-  "CH":"China"
+  "CH":"China",
+  "FR":"France",
+  "DE":"Germany",
+  "JP":"Japan",
+  "CA":"Canada",
+  "ZA":"SouthAfrica"
 }
