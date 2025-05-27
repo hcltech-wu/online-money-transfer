@@ -1,12 +1,16 @@
 package com.callisto.repository;
 
-import com.callisto.model.User;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import com.callisto.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     public boolean existsByEmail(String email);
 
-    Optional<User> findByEmail(String email);
+    public Optional<User> findByEmail(String email);
+
+    Optional<User> findByEmailAndPassword(String email, String password);
+
 }
