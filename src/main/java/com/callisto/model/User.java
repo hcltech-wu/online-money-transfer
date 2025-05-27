@@ -52,8 +52,7 @@ public class User {
     private String phoneNumber;
 
     @NotBlank(message = "Password is required")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).*$",
-            message = "Password must contain at least one uppercase letter, one lowercase letter, and one special character")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).*$", message = "Password must contain at least one uppercase letter, one lowercase letter, and one special character")
     private String password;
 
     @Embedded

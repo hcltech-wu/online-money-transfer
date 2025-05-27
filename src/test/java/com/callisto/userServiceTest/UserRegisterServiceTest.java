@@ -157,10 +157,12 @@ public class UserRegisterServiceTest {
 
         verify(userRepository).save(user);
     }
+
     @Test
     public void testAllArgsConstructorAndGetters() {
         LocalDateTime now = LocalDateTime.now();
-        ErrorResponse errorResponse = new ErrorResponse(now, 404, ErrorConstants.EMAIL_ALREADY_REGISTERD, "Resource missing", "/api/resource");
+        ErrorResponse errorResponse = new ErrorResponse(now, 404, ErrorConstants.EMAIL_ALREADY_REGISTERD,
+                "Resource missing", "/api/resource");
 
         assertEquals(now, errorResponse.getTimestamp());
         assertEquals(404, errorResponse.getStatus());
