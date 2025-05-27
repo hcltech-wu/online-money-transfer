@@ -1,5 +1,6 @@
 package com.callisto.userServiceTest;
 
+import com.callisto.dto.LoginResponse;
 import com.callisto.model.User;
 import com.callisto.repository.UserRepository;
 import com.callisto.service.UserService;
@@ -45,8 +46,8 @@ class UserLoginServiceTest {
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(rawPassword, encodedPassword)).thenReturn(true);
 
-        String result = userService.isUserValid(email, rawPassword);
-        assertEquals(result, expectedResult);
+        LoginResponse result = userService.isUserValid(email, rawPassword);
+        assertEquals(result.getMessage(), expectedResult);
         verify(userRepository).findByEmail(email);
         verify(passwordEncoder).matches(rawPassword, encodedPassword);
     }
@@ -65,8 +66,8 @@ class UserLoginServiceTest {
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(rawPassword, encodedPassword)).thenReturn(false);
 
-        String result = userService.isUserValid(email, rawPassword);
-        assertEquals(result, expectedResult);
+        LoginResponse result = userService.isUserValid(email, rawPassword);
+        assertEquals(result.getMessage(), expectedResult);
         verify(userRepository).findByEmail(email);
         verify(passwordEncoder).matches(rawPassword, encodedPassword);
     }
@@ -79,8 +80,8 @@ class UserLoginServiceTest {
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
-        String result = userService.isUserValid(email, password);
-        assertEquals(result, expectedResult);
+        LoginResponse result = userService.isUserValid(email, password);
+        assertEquals(result.getMessage(), expectedResult);
         verify(userRepository).findByEmail(email);
         verify(passwordEncoder, never()).matches(anyString(), anyString());
     }

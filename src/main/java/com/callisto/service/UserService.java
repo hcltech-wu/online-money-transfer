@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.callisto.dto.LoginResponse;
 import com.callisto.exception.UserEmailExitsException;
 import com.callisto.exception.UserEmailNotFoundException;
 import org.apache.logging.log4j.LogManager;
@@ -108,7 +109,7 @@ public class UserService {
         }
     }
 
-    public String isUserValid(String email, String password) {
+    public LoginResponse isUserValid(String email, String password) {
         // getting logs
         logger.info("Validating user with email: {}", email);
 
@@ -118,14 +119,14 @@ public class UserService {
             boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
             if (passwordMatches) {
                 logger.info("User {} authenticated successfully.", email);
-                return "User login successfully";
+                return new LoginResponse("Success","User login successfully");
             } else {
                 logger.warn("Incorrect password for user: {}", email);
-                return "Incorrect password";
+                return new LoginResponse("Error","Incorrect password");
             }
         } else {
             logger.warn("No user found with email: {}", email);
-            return "User not found";
+            return new LoginResponse("Error","User not found");
         }
 
     }

@@ -1,6 +1,7 @@
 package com.callisto.controller;
 
 import com.callisto.dto.LoginRequest;
+import com.callisto.dto.LoginResponse;
 import com.callisto.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,6 +10,7 @@ import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,13 +31,18 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Invalid input"),
             @ApiResponse(responseCode = "500", description = "Internal server error") })
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
 
         // getting logs
         logger.info("Received login request for email: {}", loginRequest.getEmail());
 
         // logic for the user is exists or not
-        String exists = userService.isUserValid(loginRequest.getEmail(), loginRequest.getPassword());
-        return ResponseEntity.ok(exists);
+        LoginResponse response = userService.isUserValid(loginRequest.getEmail(), loginRequest.getPassword());
+
+        HttpStatus status = response.getStatus().equals("Success")? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
+
+        return new ResponseEntity<>(response, status);
+
+       //return ResponseEntity.ok(exists);
     }
 }
