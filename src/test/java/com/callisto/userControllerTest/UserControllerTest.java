@@ -30,7 +30,7 @@ class UserControllerTest {
     void setUp() {
 
         profile = new CustomerProfileDTO("Steve N Jose", LocalDate.of(1999, 3, 3), "MG Road, 400001, Mumbai-India",
-                LogMessages.language, LogMessages.status, "test@example.com", "+91 9999999999");
+                LogMessages.language, LogMessages.status, "test@example.com", "9999999999");
 
     }
 

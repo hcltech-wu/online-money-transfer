@@ -33,11 +33,4 @@ public class UserController {
         return ResponseEntity.ok(profile);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody User user) {
-        logger.info("Received request to /api/user/register with params: {}", user);
-        userService.saveUser(user);
-        return ResponseEntity.ok(SmConstants.USER_REGISTERED);
-
-    }
 }
