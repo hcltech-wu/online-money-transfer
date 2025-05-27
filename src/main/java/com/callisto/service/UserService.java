@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.callisto.exception.UserEmailExitsException;
+import com.callisto.exception.UserEmailNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,6 @@ import com.callisto.dto.CustomerProfileDTO;
 import com.callisto.dto.UserDto;
 import com.callisto.exception.FirstNameNotFoundException;
 import com.callisto.exception.ResourceNotFoundException;
-import com.callisto.exception.UserEmailNotFoundException;
 import com.callisto.model.Address;
 import com.callisto.model.User;
 import com.callisto.repository.UserRepository;
@@ -59,7 +60,7 @@ public class UserService {
         logger.info("Saving user with Email: {}", user.getEmail());
         if (userRepository.existsByEmail(user.getEmail())) {
             logger.info(" User already present with Email: {}", user.getEmail());
-            throw new UserEmailNotFoundException();
+            throw new UserEmailExitsException();
         }
 
         if (user.getFirstName() == null || user.getFirstName().isBlank()) {
@@ -81,7 +82,7 @@ public class UserService {
     }
 
     public void updateUserDetails(@Valid UserDto userDto) {
-    	log.info("updating user info");
+        log.info("updating user info");
         Optional<User> useropt = userRepository.findByEmail(userDto.getEmail());
         if (!useropt.isPresent()) {
             throw new UserEmailNotFoundException("User is not exist with the email address");
@@ -103,7 +104,7 @@ public class UserService {
             existingUser.setDob(userDto.getDob());
             existingUser.setAddress(userDto.getAddress());
             userRepository.save(existingUser);
-        	log.info("user info Updated successfully");
+            log.info("user info Updated successfully");
         }
     }
 

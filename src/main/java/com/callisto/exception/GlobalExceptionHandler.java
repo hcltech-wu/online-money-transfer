@@ -27,10 +27,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserEmailNotFoundException.class)
+    @ExceptionHandler(UserEmailExitsException.class)
     public ResponseEntity<ErrorResponse> userEmailNotFoundException(UserEmailNotFoundException ex, WebRequest request) {
         ErrorResponse error = new ErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(),
-                ErrorConstants.EMAIL_REGISTERD, ex.getMessage(), request.getDescription(false));
+                ErrorConstants.EMAIL_ALREADY_REGISTERD, ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 

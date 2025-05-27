@@ -40,7 +40,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@Valid @RequestBody User user) {
-        logger.info("Received request to /api/user/register with params: {}", user);
+        logger.info("Received request to /api/user/register with params: {}", user.getEmail());
         userService.saveUser(user);
         return ResponseEntity.ok(SmConstants.USER_REGISTERED);
 
