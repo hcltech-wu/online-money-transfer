@@ -38,9 +38,7 @@ public class AuthControllerTest {
         LoginResponse expectedResponse = new LoginResponse("Success","User login successfully");
         given(userService.isUserValid("user@example.com", "password123")).willReturn(expectedResponse);
 
-        /*mockMvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(loginRequest))).andExpect(status().isOk())
-                .andExpect(content().string("User login successfully"));*/
+
         mockMvc.perform(post("/api/auth/login")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(loginRequest)))
@@ -60,10 +58,6 @@ public class AuthControllerTest {
 
         given(userService.isUserValid("nonexistent@example.com", "password123")).willReturn(expectedResponse);
 
-        /*mockMvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(loginRequest))).andExpect(status().isOk())
-                .andExpect(content().string("User not found"));*/
-
         mockMvc.perform(post("/api/auth/login")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(loginRequest)))
@@ -82,9 +76,6 @@ public class AuthControllerTest {
         LoginResponse expectedResponse = new LoginResponse("Error","Incorrect password");
         given(userService.isUserValid("user@example.com", "wrongpassword")).willReturn(expectedResponse);
 
-        /*mockMvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(loginRequest))).andExpect(status().isOk())
-                .andExpect(content().string("Incorrect password"));*/
         mockMvc.perform(post("/api/auth/login")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(loginRequest)))
