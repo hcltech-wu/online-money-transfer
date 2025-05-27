@@ -17,15 +17,18 @@ import org.springframework.stereotype.Service;
 import com.callisto.Constant.ExceptionConstants;
 import com.callisto.Constant.LogMessages;
 import com.callisto.dto.CustomerProfileDTO;
+
 import com.callisto.dto.UserDto;
 import com.callisto.exception.FirstNameNotFoundException;
+
 import com.callisto.exception.ResourceNotFoundException;
 import com.callisto.model.Address;
 import com.callisto.model.User;
 import com.callisto.repository.UserRepository;
 
-import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import jakarta.validation.Valid;
+
 
 @Log4j2
 @Service
@@ -36,6 +39,7 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     private static final Logger logger = LogManager.getLogger(UserService.class);
 
@@ -49,9 +53,8 @@ public class UserService {
         Address address = user.getAddress();
         String addressString = String.format("%s,%s,%s-%s", address.getStreet(), address.getPin(), address.getCity(),
                 address.getCountry());
-        String mobile = "+91 " + user.getPhoneNumber();
-        final String language = "English";
-        final String status = "Active";
+        String mobile = user.getPhoneNumber();
+
         return new CustomerProfileDTO(fullName, user.getDob(), addressString, LogMessages.language, LogMessages.status,
                 user.getEmail(), mobile);
     }
@@ -130,4 +133,5 @@ public class UserService {
         }
 
     }
+
 }

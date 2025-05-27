@@ -57,7 +57,7 @@ public class UserServiceTest {
         assertEquals((LogMessages.status), profile.getStatus());
         assertEquals(LogMessages.language, profile.getLanguage());
         assertEquals("MG Road,400001,Pune-India", profile.getAddress());
-        assertEquals("+91 9876543210", profile.getMobile());
+        assertEquals("9876543210", profile.getMobile());
 
     }
 
