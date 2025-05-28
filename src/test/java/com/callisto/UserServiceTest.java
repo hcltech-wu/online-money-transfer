@@ -22,10 +22,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.callisto.dto.UserDto;
 import com.callisto.exception.UserEmailNotFoundException;
-import com.callisto.model.Address;
 import com.callisto.model.User;
 import com.callisto.repository.UserRepository;
 import com.callisto.service.UserService;
+import com.callisto.model.Address;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -52,15 +52,15 @@ public class UserServiceTest {
         updateAddress = new Address("456 New Rd", "New City", "NC", "USA", "67890");
 
         // DTO with a new middle name
-        userUpdateDTO = new UserDto(1l, "NewFirstName", "NewMiddleName", "NewLastName", LocalDate.of(1995, 2, 20),
+        userUpdateDTO = new UserDto("NewFirstName", "NewMiddleName", "NewLastName", LocalDate.of(1995, 2, 20),
                 "old.email@example.com", "1234567890", updateAddress); // Email is key!
 
         // DTO with an empty middle name
-        userUpdateDTOMiddleNameEmpty = new UserDto(1l, "NewFirstName", "", "NewLastName", LocalDate.of(1995, 2, 20),
+        userUpdateDTOMiddleNameEmpty = new UserDto("NewFirstName", "", "NewLastName", LocalDate.of(1995, 2, 20),
                 "old.email@example.com", "1234567890", updateAddress);
 
         // DTO with a null middle name
-        userUpdateDTOMiddleNameNull = new UserDto(1l, "NewFirstName", null, "NewLastName", LocalDate.of(1995, 2, 20),
+        userUpdateDTOMiddleNameNull = new UserDto("NewFirstName", null, "NewLastName", LocalDate.of(1995, 2, 20),
                 "old.email@example.com", "1234567890", updateAddress);
     }
 
@@ -143,7 +143,7 @@ public class UserServiceTest {
     void shouldThrowExceptionWhenUserEmailNotFoundForUpdate() {
         // Mock the repository behavior for email not found
         String nonExistentEmail = "non.existent@example.com";
-        UserDto dtoWithNonExistentEmail = new UserDto(1l, "Test", null, "User", LocalDate.now(), nonExistentEmail,
+        UserDto dtoWithNonExistentEmail = new UserDto("Test", null, "User", LocalDate.now(), nonExistentEmail,
                 "1112223333", existingAddress);
 
         when(userRepository.findByEmail(nonExistentEmail)).thenReturn(Optional.empty());
@@ -154,7 +154,7 @@ public class UserServiceTest {
         });
 
         // Verify the exception message
-        assertEquals("User is not exist with the email address", exception.getMessage());
+        assertEquals("User Email not found.", exception.getMessage());
 
         // Verify that findByEmail was called once
         verify(userRepository, times(1)).findByEmail(nonExistentEmail);
