@@ -39,10 +39,10 @@ public class AuthController {
         // logic for the user is exists or not
         LoginResponse response = userService.isUserValid(loginRequest.getEmail(), loginRequest.getPassword());
 
-        HttpStatus status = response.getStatus().equals("Success")? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
+        HttpStatus status = response.getStatus().equals("Success") ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
 
         return new ResponseEntity<>(response, status);
 
-       //return ResponseEntity.ok(exists);
+        // return ResponseEntity.ok(exists);
     }
 }

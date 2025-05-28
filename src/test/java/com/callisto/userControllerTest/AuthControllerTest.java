@@ -35,16 +35,12 @@ public class AuthControllerTest {
         loginRequest.setEmail("user@example.com");
         loginRequest.setPassword("password123");
 
-        LoginResponse expectedResponse = new LoginResponse("Success","User login successfully");
+        LoginResponse expectedResponse = new LoginResponse("Success", "User login successfully");
         given(userService.isUserValid("user@example.com", "password123")).willReturn(expectedResponse);
 
-
-        mockMvc.perform(post("/api/auth/login")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(loginRequest)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.status").value("Success"))
+        mockMvc.perform(post("/api/auth/login").contentType("application/json")
+                .content(objectMapper.writeValueAsString(loginRequest))).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json")).andExpect(jsonPath("$.status").value("Success"))
                 .andExpect(jsonPath("$.message").value("User login successfully"));
     }
 
@@ -54,16 +50,13 @@ public class AuthControllerTest {
         loginRequest.setEmail("nonexistent@example.com");
         loginRequest.setPassword("password123");
 
-        LoginResponse expectedResponse = new LoginResponse("Error","User not found");
+        LoginResponse expectedResponse = new LoginResponse("Error", "User not found");
 
         given(userService.isUserValid("nonexistent@example.com", "password123")).willReturn(expectedResponse);
 
-        mockMvc.perform(post("/api/auth/login")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(loginRequest)))
-                .andExpect(status().isUnauthorized())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.status").value("Error"))
+        mockMvc.perform(post("/api/auth/login").contentType("application/json")
+                .content(objectMapper.writeValueAsString(loginRequest))).andExpect(status().isUnauthorized())
+                .andExpect(content().contentType("application/json")).andExpect(jsonPath("$.status").value("Error"))
                 .andExpect(jsonPath("$.message").value("User not found"));
     }
 
@@ -73,15 +66,12 @@ public class AuthControllerTest {
         loginRequest.setEmail("user@example.com");
         loginRequest.setPassword("wrongpassword");
 
-        LoginResponse expectedResponse = new LoginResponse("Error","Incorrect password");
+        LoginResponse expectedResponse = new LoginResponse("Error", "Incorrect password");
         given(userService.isUserValid("user@example.com", "wrongpassword")).willReturn(expectedResponse);
 
-        mockMvc.perform(post("/api/auth/login")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(loginRequest)))
-                .andExpect(status().isUnauthorized())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.status").value("Error"))
+        mockMvc.perform(post("/api/auth/login").contentType("application/json")
+                .content(objectMapper.writeValueAsString(loginRequest))).andExpect(status().isUnauthorized())
+                .andExpect(content().contentType("application/json")).andExpect(jsonPath("$.status").value("Error"))
                 .andExpect(jsonPath("$.message").value("Incorrect password"));
     }
 }

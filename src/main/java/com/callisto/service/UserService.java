@@ -29,7 +29,6 @@ import com.callisto.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import jakarta.validation.Valid;
 
-
 @Log4j2
 @Service
 public class UserService {
@@ -39,7 +38,6 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     private static final Logger logger = LogManager.getLogger(UserService.class);
 
@@ -89,7 +87,7 @@ public class UserService {
         log.info("updating user info");
         Optional<User> useropt = userRepository.findByEmail(userDto.getEmail());
         if (!useropt.isPresent()) {
-            throw new UserEmailNotFoundException("User is not exist with the email address");
+            throw new UserEmailNotFoundException();
         } else {
             User existingUser = useropt.get();
             if (userDto.getFirstName() == null || userDto.getFirstName().isBlank()) {
@@ -122,14 +120,14 @@ public class UserService {
             boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
             if (passwordMatches) {
                 logger.info("User {} authenticated successfully.", email);
-                return new LoginResponse("Success","User login successfully");
+                return new LoginResponse("Success", "User login successfully");
             } else {
                 logger.warn("Incorrect password for user: {}", email);
-                return new LoginResponse("Error","Incorrect password");
+                return new LoginResponse("Error", "Incorrect password");
             }
         } else {
             logger.warn("No user found with email: {}", email);
-            return new LoginResponse("Error","User not found");
+            return new LoginResponse("Error", "User not found");
         }
 
     }
